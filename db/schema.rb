@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318152520) do
+ActiveRecord::Schema.define(version: 20150409133126) do
+
+  create_table "user_movies", force: true do |t|
+    t.integer "user_id"
+    t.string  "name"
+    t.string  "image"
+    t.text    "description"
+    t.decimal "price",       precision: 8, scale: 2
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -20,6 +28,8 @@ ActiveRecord::Schema.define(version: 20150318152520) do
     t.string   "auth_token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "encrypted_password",  default: "", null: false
+    t.datetime "remember_created_at"
   end
 
   add_index "users", ["auth_token"], name: "index_users_on_auth_token"

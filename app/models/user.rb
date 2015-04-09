@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
+  devise :database_authenticatable, :registerable, :rememberable, :validatable
 
-  has_secure_password
+  # has_secure_password
 
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
@@ -21,7 +22,7 @@ class User < ActiveRecord::Base
     token = SecureRandom.urlsafe_base64(nil, false)
     update_attribute :auth_token, token
   end
-  
+
   def destroy_token!
     update_attribute :auth_token, nil
   end
