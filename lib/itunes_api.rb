@@ -8,22 +8,38 @@ class ItunesApi
   end
 
   def movies
-    response = self.class.get('', @options).parsed_response
-    return [] if response.empty?
+    response      = self.class.get('', @options).parsed_response
+    json_response = get_json_response response
+    return [] if json_response.empty? || json_response['results'].empty?
 
-    pasrsed_response response
+    pasrsed_response json_response['results']
   end
 
   private
 
-  def pasrsed_response response
+  def pasrsed_response json_response
+    json_response.map do |movie|
+      name        = movie['artistName']
+      price       = movie['collectionHdPrice']
+      image       = movie['artworkUrl100']
+      description = movie['longDescription']
 
+      ItunesMovie.new(name, price, image, description)
+    end
+  end
+
+  def get_json_response response
+    begin
+      JSON.parse(response)
+    rescue JSON::ParserError, TypeError => e
+      []
+    end
   end
 
   class ItunesMovie
-    attr_reader :name, :price,
+    attr_reader :name, :price, :image, :description
 
-    def initialize(name)
+    def initialize(name, price, image, description)
       @name        = name
       @price       = price
       @image       = image
