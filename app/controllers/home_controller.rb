@@ -4,6 +4,6 @@ class HomeController < ApplicationController
   end
 
   def search_movie
-    raise params.inspect
+    @movies = ItunesApi.new(params[:query])
   end
 end

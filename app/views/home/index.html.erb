@@ -1,5 +1,13 @@
-<%= form_tag do |f| %>
-  <%= f.label :query %>
-  <%= f.text_field :query %>
+<%= form_tag('/home/search_movie', method: "get") do %>
+  <%= label_tag :query %>
+  <%= text_field_tag :query %>
   <%= submit_tag("Search") %>
 <% end %>
+
+<br>
+
+<% @movies = ItunesApi.new('terminator').movies %>
+
+<div id='results'>
+  <%= render partial: "movie_results", locals: { movies: @movies } %>
+</div>

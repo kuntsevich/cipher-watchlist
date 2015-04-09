@@ -19,12 +19,12 @@ class ItunesApi
 
   def pasrsed_response json_response
     json_response.map do |movie|
-      name        = movie['artistName']
+      author_name = movie['artistName']
       price       = movie['collectionHdPrice']
-      image       = movie['artworkUrl100']
+      image_url   = movie['artworkUrl100']
       description = movie['longDescription']
 
-      ItunesMovie.new(name, price, image, description)
+      ItunesMovie.new(author_name, price, image_url, description)
     end
   end
 
@@ -37,12 +37,12 @@ class ItunesApi
   end
 
   class ItunesMovie
-    attr_reader :name, :price, :image, :description
+    attr_reader :author_name, :price, :image_url, :description
 
-    def initialize(name, price, image, description)
-      @name        = name
+    def initialize(author_name, price, image_url, description)
+      @author_name = author_name
       @price       = price
-      @image       = image
+      @image_url   = image_url
       @description = description
     end
   end

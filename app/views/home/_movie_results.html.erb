@@ -1,0 +1,19 @@
+<table>
+  <thead>
+    <th>Author Name</th>
+    <th>Description</th>
+    <th>Price</th>
+    <th>Image</th>
+  </thead>
+
+  <tbody>
+    <% movies.each do |movie| %>
+      <tr>
+        <td width="10%"><%= movie.author_name %></td>
+        <td width="45%"><%= movie.description %></td>
+        <td width="10%"><%= movie.price %></td>
+        <td><%= image_tag(movie.image_url) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
